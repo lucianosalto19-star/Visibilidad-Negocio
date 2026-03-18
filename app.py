@@ -2,6 +2,38 @@ import streamlit as st
 import plotly.graph_objects as go
 from fpdf import FPDF
 import datetime
+import requests
+
+FORM_URL = "https://docs.google.com/forms/d/1j6PCC2M6XLrvwDplNYsLXcMRcyscRGd9ZJyungGg8QE/formResponse"
+
+FORM_FIELDS = {
+    "timestamp":     "entry.1934565408",
+    "perfil":        "entry.295287486",
+    "puntaje_total": "entry.1287038294",
+    "datos":         "entry.1371796543",
+    "acceso":        "entry.656896704",
+    "decisiones":    "entry.211022462",
+    "comprension":   "entry.1440620655",
+    "automatizacion":"entry.1855733228",
+}
+
+MAX_REGISTROS = 500
+
+def guardar_respuesta(perfil_nombre, puntaje_total, respuestas):
+    try:
+        data = {
+            FORM_FIELDS["timestamp"]:      datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            FORM_FIELDS["perfil"]:         perfil_nombre,
+            FORM_FIELDS["puntaje_total"]:  str(puntaje_total),
+            FORM_FIELDS["datos"]:          str(respuestas.get("datos", 0)),
+            FORM_FIELDS["acceso"]:         str(respuestas.get("acceso", 0)),
+            FORM_FIELDS["decisiones"]:     str(respuestas.get("decisiones", 0)),
+            FORM_FIELDS["comprension"]:    str(respuestas.get("comprension", 0)),
+            FORM_FIELDS["automatizacion"]: str(respuestas.get("automatizacion", 0)),
+        }
+        requests.post(FORM_URL, data=data, timeout=3)
+    except Exception:
+        pass  # Silencioso - nunca interrumpe la experiencia del usuario
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -70,8 +102,10 @@ html, body, [class*="css"] {
 }
 
 .perfil-contenedor {
-    background: #1a1a2e;
+    background: linear-gradient(145deg, #1e2240 0%, #252845 100%);
     border-radius: 16px;
+    border: 1px solid rgba(240,192,64,0.25);
+    box-shadow: 0 4px 24px rgba(26,26,46,0.12);
     padding: 1.8rem 2rem;
     margin-bottom: 1.5rem;
     text-align: center;
@@ -79,36 +113,37 @@ html, body, [class*="css"] {
 
 .perfil-nivel {
     font-family: 'Sora', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: #f0c040;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     margin-bottom: 0.3rem;
+    opacity: 0.9;
 }
 
 .perfil-nombre {
     font-family: 'Sora', sans-serif;
-    font-size: 2rem;
+    font-size: 1.9rem;
     font-weight: 800;
-    color: #ffffff;
+    color: #f5f5ff;
     margin-bottom: 0.2rem;
 }
 
 .perfil-puntaje {
     font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    color: #aaaacc;
+    font-size: 0.95rem;
+    color: #9898bb;
     margin-bottom: 1rem;
 }
 
 .perfil-descripcion {
     font-family: 'DM Sans', sans-serif;
-    font-size: 1.05rem;
-    color: #d0d0e8;
-    line-height: 1.7;
+    font-size: 1rem;
+    color: #c8c8e0;
+    line-height: 1.75;
     text-align: justify;
-    border-top: 1px solid rgba(240,192,64,0.3);
+    border-top: 1px solid rgba(240,192,64,0.2);
     padding-top: 1rem;
     margin-top: 0.5rem;
 }
@@ -182,15 +217,16 @@ html, body, [class*="css"] {
 }
 
 .oportunidad-box {
-    background: #fffbef;
+    background: linear-gradient(135deg, #fdf8e8 0%, #fffdf5 100%);
     border-left: 4px solid #f0c040;
     border-radius: 0 10px 10px 0;
+    box-shadow: 0 2px 8px rgba(240,192,64,0.08);
     padding: 1rem 1.3rem;
-    margin: 1rem 0 1.5rem 0;
+    margin: 0.8rem 0 1.5rem 0;
     font-family: 'DM Sans', sans-serif;
     font-size: 1.02rem;
-    color: #333;
-    line-height: 1.7;
+    color: #2a2a2a;
+    line-height: 1.75;
     text-align: justify;
 }
 
@@ -782,6 +818,7 @@ elif st.session_state.pagina == "resultados":
     with col_pdf:
         try:
             pdf_bytes = generar_pdf(perfil, puntaje_total, prioridades)
+            guardar_respuesta(perfil["nombre"], puntaje_total, respuestas)
             st.download_button(
                 label="Descargar mi diagnostico en PDF",
                 data=pdf_bytes,
