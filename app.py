@@ -36,7 +36,7 @@ html, body, [class*="css"] {
 
 .subtitulo {
     font-family: 'DM Sans', sans-serif;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     color: #4a4a4a;
     line-height: 1.7;
     margin-bottom: 1.5rem;
@@ -45,7 +45,7 @@ html, body, [class*="css"] {
 
 .pregunta-label {
     font-family: 'Sora', sans-serif;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: #1a1a2e;
     margin-bottom: 0.3rem;
@@ -62,7 +62,7 @@ html, body, [class*="css"] {
 
 .subtitulo-resultados {
     font-family: 'DM Sans', sans-serif;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     color: #4a4a4a;
     text-align: center;
     line-height: 1.6;
@@ -79,7 +79,7 @@ html, body, [class*="css"] {
 
 .perfil-nivel {
     font-family: 'Sora', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #f0c040;
     text-transform: uppercase;
@@ -97,14 +97,14 @@ html, body, [class*="css"] {
 
 .perfil-puntaje {
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #aaaacc;
     margin-bottom: 1rem;
 }
 
 .perfil-descripcion {
     font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: #d0d0e8;
     line-height: 1.7;
     text-align: justify;
@@ -115,7 +115,7 @@ html, body, [class*="css"] {
 
 .seccion-titulo {
     font-family: 'Sora', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: #1a1a2e;
     text-align: center;
@@ -124,7 +124,7 @@ html, body, [class*="css"] {
 
 .seccion-descripcion {
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: #666;
     text-align: center;
     margin-bottom: 1rem;
@@ -144,7 +144,7 @@ html, body, [class*="css"] {
 
 .rec-dimension {
     font-family: 'Sora', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 700;
     color: #888;
     text-transform: uppercase;
@@ -154,7 +154,7 @@ html, body, [class*="css"] {
 
 .rec-texto {
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.97rem;
+    font-size: 1.02rem;
     color: #333;
     line-height: 1.6;
     text-align: justify;
@@ -164,7 +164,7 @@ html, body, [class*="css"] {
     background: #f0f0f0;
     border-radius: 20px;
     padding: 0.35rem 0.9rem;
-    font-size: 0.88rem;
+    font-size: 0.93rem;
     color: #333;
     display: inline-block;
     margin: 0.25rem;
@@ -174,7 +174,7 @@ html, body, [class*="css"] {
 
 .beneficio-item {
     font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: #333;
     padding: 0.4rem 0;
     line-height: 1.5;
@@ -188,7 +188,7 @@ html, body, [class*="css"] {
     padding: 1rem 1.3rem;
     margin: 1rem 0 1.5rem 0;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.97rem;
+    font-size: 1.02rem;
     color: #333;
     line-height: 1.7;
     text-align: justify;
@@ -502,12 +502,12 @@ def crear_telarana(respuestas, puntaje_total):
                 range=[0, 2],
                 tickvals=[0, 1, 2],
                 ticktext=["Inicial", "En proceso", "Logrado"],
-                tickfont=dict(size=10, color="#888"),
+                tickfont=dict(size=12, color="#888"),
                 gridcolor="#e0ddd8",
                 linecolor="#e0ddd8",
             ),
             angularaxis=dict(
-                tickfont=dict(size=12, family="Sora", color="#1a1a2e"),
+                tickfont=dict(size=14, family="Sora", color="#1a1a2e"),
                 linecolor="#e0ddd8",
                 gridcolor="#e0ddd8",
             ),
@@ -515,7 +515,7 @@ def crear_telarana(respuestas, puntaje_total):
         ),
         showlegend=True,
         legend=dict(
-            font=dict(size=11, family="DM Sans"),
+            font=dict(size=13, family="DM Sans"),
             bgcolor="rgba(255,255,255,0.9)",
             bordercolor="#e8e4dc",
             borderwidth=1,
@@ -531,121 +531,85 @@ def crear_telarana(respuestas, puntaje_total):
     )
     return fig
 
-def limpiar_texto(texto):
-    """Elimina caracteres fuera del rango latin-1 para compatibilidad con Helvetica."""
-    return (texto
-        .replace('\u2014', '-')   # em dash —
-        .replace('\u2013', '-')   # en dash -
-        .replace('\u2019', "'")   # comilla curva derecha
-        .replace('\u2018', "'")   # comilla curva izquierda
-        .replace('\u201c', '"')   # comilla doble izquierda
-        .replace('\u201d', '"')   # comilla doble derecha
-        .replace('\u2026', '...')  # elipsis
+def _limpiar(t):
+    return (str(t)
+        .replace('\u2014', '-').replace('\u2013', '-')
+        .replace('\u2019', "'").replace('\u2018', "'")
+        .replace('\u201c', '"').replace('\u201d', '"')
+        .replace('\u2026', '...')
+        .encode('latin-1', errors='replace').decode('latin-1')
     )
 
 def generar_pdf(perfil, puntaje_total, prioridades):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_auto_page_break(auto=True, margin=15)
+    L, R, W = 15, 15, 180
 
-    # Header
+    def x():
+        pdf.set_x(L)
+
+    def mc(texto, h=6, size=10, bold=False, color=(50,50,50), align="L"):
+        pdf.set_font("Helvetica", "B" if bold else "", size)
+        pdf.set_text_color(*color)
+        x()
+        pdf.multi_cell(W, h, _limpiar(texto), align=align,
+                       new_x="LMARGIN", new_y="NEXT")
+
+    def seccion(titulo):
+        pdf.ln(2)
+        mc(titulo, h=7, size=12, bold=True, color=(26,26,46))
+        pdf.set_draw_color(240, 192, 64)
+        pdf.set_line_width(0.6)
+        pdf.line(L, pdf.get_y(), 210-R, pdf.get_y())
+        pdf.ln(3)
+
+    # Header oscuro
     pdf.set_fill_color(26, 26, 46)
-    pdf.rect(0, 0, 210, 38, 'F')
-    pdf.set_font("Helvetica", "B", 16)
-    pdf.set_text_color(240, 192, 64)
-    pdf.set_y(9)
-    pdf.cell(0, 9, "Diagnostico de Visibilidad del Negocio", ln=True, align="C")
-    pdf.set_font("Helvetica", "", 9)
-    pdf.set_text_color(180, 180, 200)
-    pdf.cell(0, 7, "De sobrevivir a competir: automatizacion e IA como diferenciador", ln=True, align="C")
+    pdf.rect(0, 0, 210, 34, 'F')
+    pdf.set_y(7)
+    mc("Diagnostico de Visibilidad del Negocio",
+       h=9, size=15, bold=True, color=(240,192,64), align="C")
+    mc("De sobrevivir a competir: automatizacion e IA como diferenciador",
+       h=6, size=9, color=(180,180,200), align="C")
+    pdf.ln(6)
 
-    pdf.set_y(46)
-    pdf.set_text_color(26, 26, 46)
-
-    # Nivel actual
-    pdf.set_font("Helvetica", "B", 13)
-    pdf.cell(0, 8, "Tu nivel actual de visibilidad", ln=True)
-    pdf.set_draw_color(240, 192, 64)
-    pdf.set_line_width(0.8)
-    pdf.line(10, pdf.get_y(), 200, pdf.get_y())
-    pdf.ln(4)
-
-    pdf.set_fill_color(26, 26, 46)
-    pdf.set_text_color(240, 192, 64)
-    pdf.set_font("Helvetica", "B", 13)
-    nivel_txt = f"Nivel: {perfil['nombre']}  |  Puntaje: {puntaje_total} / 10"
-    pdf.cell(0, 11, nivel_txt, ln=True, fill=True, align="C")
-    pdf.ln(3)
-
-    pdf.set_text_color(60, 60, 60)
-    pdf.set_font("Helvetica", "", 10)
-    pdf.multi_cell(0, 6, limpiar_texto(perfil["descripcion"]))
-    pdf.ln(3)
-
-    pdf.set_font("Helvetica", "B", 10)
-    pdf.set_text_color(26, 26, 46)
-    pdf.cell(0, 7, "Siguiente paso clave:", ln=True)
-    pdf.set_font("Helvetica", "", 10)
-    pdf.set_text_color(60, 60, 60)
-    pdf.multi_cell(0, 6, limpiar_texto(perfil["oportunidad"]))
-    pdf.ln(4)
+    # Nivel
+    seccion("Tu nivel actual de visibilidad")
+    mc(f"Nivel: {perfil['nombre']}  |  Puntaje: {puntaje_total} / 10",
+       h=9, size=12, bold=True, color=(26,26,46), align="C")
+    pdf.ln(2)
+    mc(perfil["descripcion"])
+    pdf.ln(2)
+    mc("Siguiente paso clave:", bold=True, color=(26,26,46))
+    mc(perfil["oportunidad"], color=(80,60,0))
+    pdf.ln(2)
 
     # Prioridades
-    pdf.set_font("Helvetica", "B", 13)
-    pdf.set_text_color(26, 26, 46)
-    pdf.cell(0, 8, "Tus prioridades para ganar visibilidad", ln=True)
-    pdf.set_line_width(0.8)
-    pdf.line(10, pdf.get_y(), 200, pdf.get_y())
-    pdf.ln(4)
-
+    seccion("Tus prioridades para ganar visibilidad")
     for i, p in enumerate(prioridades, 1):
-        pdf.set_font("Helvetica", "B", 10)
-        pdf.set_text_color(26, 26, 46)
-        pdf.cell(0, 7, f"{i}. {p['dimension']}  [Impacto {p['impacto']}]", ln=True)
-        pdf.set_font("Helvetica", "", 9)
-        pdf.set_text_color(70, 70, 70)
-        pdf.multi_cell(0, 5, limpiar_texto(p["recomendacion"]))
+        mc(f"{i}. {p['dimension']}  [Impacto {p['impacto']}]",
+           bold=True, color=(26,26,46))
+        mc(p["recomendacion"], size=9, color=(70,70,70))
         pdf.ln(2)
 
     # Herramientas
-    pdf.set_font("Helvetica", "B", 13)
-    pdf.set_text_color(26, 26, 46)
-    pdf.cell(0, 8, "Herramientas que pueden impulsarte al siguiente nivel", ln=True)
-    pdf.set_line_width(0.8)
-    pdf.line(10, pdf.get_y(), 200, pdf.get_y())
-    pdf.ln(4)
-
-    pdf.set_font("Helvetica", "", 10)
-    pdf.set_text_color(60, 60, 60)
+    seccion("Herramientas que pueden impulsarte al siguiente nivel")
     for h in perfil["herramientas"]:
-        pdf.set_font("Helvetica", "B", 10)
-        pdf.set_text_color(26, 26, 46)
-        pdf.multi_cell(0, 6, limpiar_texto(f"- {h['nombre']}"))
-        pdf.set_font("Helvetica", "", 9)
-        pdf.set_text_color(100, 100, 100)
-        pdf.multi_cell(0, 5, limpiar_texto(f"  {h['desc']}"))
+        mc(f"- {h['nombre']}", bold=True, color=(26,26,46))
+        mc(h["desc"], size=9, color=(100,100,100))
         pdf.ln(1)
-    pdf.ln(3)
 
     # Beneficios
-    pdf.set_font("Helvetica", "B", 13)
-    pdf.set_text_color(26, 26, 46)
-    pdf.cell(0, 8, "Al subir de nivel obtendras:", ln=True)
-    pdf.set_line_width(0.8)
-    pdf.line(10, pdf.get_y(), 200, pdf.get_y())
-    pdf.ln(4)
-
-    pdf.set_font("Helvetica", "", 10)
-    pdf.set_text_color(60, 60, 60)
+    seccion("Al subir de nivel obtendras")
     for b in perfil["beneficios"]:
-        pdf.multi_cell(0, 6, limpiar_texto(f"-> {b}"))
+        mc(f"-> {b}")
     pdf.ln(4)
 
     # Footer
-    pdf.set_font("Helvetica", "I", 8)
-    pdf.set_text_color(160, 160, 160)
     fecha = datetime.date.today().strftime("%d/%m/%Y")
-    pdf.cell(0, 6, f"Generado el {fecha}  |  Universidad de la Libertad  |  Especialidad IA Aplicada a los Negocios", ln=True, align="C")
+    mc(f"Generado el {fecha}  |  Universidad de la Libertad  |  Especialidad IA Aplicada a los Negocios",
+       size=8, color=(160,160,160), align="C")
 
     return bytes(pdf.output())
 
