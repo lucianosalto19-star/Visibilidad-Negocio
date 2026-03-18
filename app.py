@@ -220,8 +220,8 @@ PREGUNTAS = [
         "dimension": "Acceso a información",
         "texto": "Cuando necesitas saber algo de tu negocio, ¿cómo lo obtienes?",
         "opciones": [
-            ("Pregunto a alguien / busco entre correos, papeles o archivos sueltos", 0),
-            ("Entro a una herramienta como Excel / QuickBooks y busco manualmente lo que necesito", 1),
+            ("Pregunto a alguien / busco en correos / papeles / archivos sueltos", 0),
+            ("Entro a una herramienta / sistema y busco manualmente lo que necesito", 1),
             ("Tengo un dashboard / reporte automático que me lo muestra sin necesidad de buscarlo", 2),
         ]
     },
@@ -264,7 +264,13 @@ PERFILES = [
         "rango": (0, 1),
         "descripcion": "Tu negocio depende de la memoria de tu equipo. Si alguien falta, la información se pierde. No puedes crecer lo que no puedes medir, y hoy gran parte de tu operación es invisible para ti.",
         "oportunidad": "Antes de pensar en IA necesitas un lugar único donde viva tu información: clientes, ventas, inventario y gastos, todo en un solo lugar accesible para tu equipo. Este es el primer peldaño y es más sencillo de lo que parece.",
-        "herramientas": ["HubSpot CRM (gratuito)", "Zoho CRM", "Clientify", "Google Workspace", "Aspel / Contpaqi"],
+        "herramientas": [
+            {"nombre": "HubSpot CRM", "desc": "Centraliza contactos, seguimiento de clientes y ventas. Gratuito."},
+            {"nombre": "Zoho CRM", "desc": "Gestiona clientes y procesos comerciales desde un solo lugar."},
+            {"nombre": "Clientify", "desc": "CRM en español pensado para pequeñas empresas."},
+            {"nombre": "Google Workspace", "desc": "Documentos, hojas de calculo y correo integrados para tu equipo."},
+            {"nombre": "Aspel / Contpaqi", "desc": "Administracion contable y fiscal para empresas mexicanas."},
+        ],
         "beneficios": [
             "Mayor control sobre tu operación diaria sin depender de personas clave",
             "Capacidad de medir lo que pasa en tu negocio en tiempo real",
@@ -277,7 +283,12 @@ PERFILES = [
         "rango": (2, 3),
         "descripcion": "Tienes sistemas pero no los estás aprovechando. Tu CRM / herramienta sabe más de tu negocio que tú. Estás pagando por infraestructura que aún no te genera valor real.",
         "oportunidad": "No necesitas más herramientas, necesitas aprender a leer las que ya tienes. Activa los reportes nativos de tu sistema y empieza a conectar esa información a tus decisiones del día a día. El valor ya está ahí, solo hay que desbloquearlo.",
-        "herramientas": ["Reportes nativos de tu CRM / ERP", "Google Looker Studio (gratuito)", "Cursos Google Activate", "QuickBooks Reports avanzados"],
+        "herramientas": [
+            {"nombre": "Reportes nativos de tu CRM / ERP", "desc": "Activa lo que ya tienes — la mayoria de sistemas incluye reportes sin costo adicional."},
+            {"nombre": "Google Looker Studio", "desc": "Crea dashboards visuales conectando tus fuentes de datos actuales. Gratuito."},
+            {"nombre": "Google Activate", "desc": "Cursos gratuitos de analisis de datos y transformacion digital en espanol."},
+            {"nombre": "Power BI Desktop", "desc": "Visualiza y analiza tus datos de Excel / hojas de calculo con graficas interactivas."},
+        ],
         "beneficios": [
             "Decisiones más informadas sin invertir en nuevo software",
             "Tiempo liberado de búsqueda manual de información",
@@ -290,7 +301,12 @@ PERFILES = [
         "rango": (4, 5),
         "descripcion": "Tienes esfuerzo analítico pero depende de personas, no de sistemas. Alguien produce tus reportes manualmente y si esa persona falta o se equivoca, pierdes visibilidad de tu negocio.",
         "oportunidad": "Automatiza lo que ya haces manualmente. El proceso que alguien ejecuta cada semana es tu primer candidato. No se trata de tecnología compleja, sino de conectar lo que ya tienes.",
-        "herramientas": ["Power BI", "Google Looker Studio", "Zapier / Make", "Notion", "Airtable"],
+        "herramientas": [
+            {"nombre": "Power BI", "desc": "Transforma datos dispersos en reportes automaticos y dashboards en tiempo real."},
+            {"nombre": "Google Looker Studio", "desc": "Conecta tus fuentes y genera reportes que se actualizan solos. Gratuito."},
+            {"nombre": "Zapier / Make", "desc": "Automatiza flujos entre tus aplicaciones sin necesidad de programar."},
+            {"nombre": "Notion / Airtable", "desc": "Organiza procesos, proyectos y datos del equipo en un solo espacio colaborativo."},
+        ],
         "beneficios": [
             "Reportes que se generan solos sin depender de nadie",
             "Menos carga operativa en tu equipo clave",
@@ -303,7 +319,12 @@ PERFILES = [
         "rango": (6, 7),
         "descripcion": "Puedes explicar lo que pasa en tu negocio con datos. Eso ya te pone por encima de la mayoría. El siguiente paso es pasar de entender lo que ocurrió a anticipar lo que va a ocurrir.",
         "oportunidad": "Tienes la base para incorporar análisis predictivo. Empieza con algo concreto: una proyección de ventas basada en tu histórico o una alerta automática cuando un indicador clave se salga del rango esperado.",
-        "herramientas": ["Modelos de forecasting en Python / Excel", "Claude / ChatGPT para análisis", "Databricks / BigQuery", "Automatización con reglas de negocio"],
+        "herramientas": [
+            {"nombre": "Python / Excel forecasting", "desc": "Modelos simples de proyeccion de ventas e inventario basados en tu historico."},
+            {"nombre": "Claude / ChatGPT", "desc": "Analiza datos, redacta reportes e interpreta resultados con lenguaje natural."},
+            {"nombre": "Databricks / BigQuery", "desc": "Procesa grandes volumenes de datos y construye modelos analiticos escalables."},
+            {"nombre": "Reglas de negocio automatizadas", "desc": "Define criterios y deja que el sistema tome decisiones operativas sin intervencion humana."},
+        ],
         "beneficios": [
             "Capacidad de anticipar problemas antes de que ocurran",
             "Decisiones proactivas en lugar de reactivas",
@@ -316,7 +337,12 @@ PERFILES = [
         "rango": (8, 10),
         "descripcion": "Estás en el camino que pocos toman. Tu negocio tiene visibilidad completa y capacidad predictiva. El reto ahora es escalar lo que tienes y gobernarlo bien para que siga funcionando mientras tu empresa crece.",
         "oportunidad": "Explora agentes de IA especializados por área de negocio y automatización de extremo a extremo de procesos complejos. El objetivo es que tu operación escale sin que el headcount crezca proporcionalmente.",
-        "herramientas": ["Agentes de IA por área de negocio", "Plataformas MLOps", "Data governance", "Automatización end-to-end"],
+        "herramientas": [
+            {"nombre": "Agentes de IA por area", "desc": "Automatiza procesos complejos por departamento — ventas, operaciones, finanzas."},
+            {"nombre": "Plataformas MLOps", "desc": "Despliega y mantiene modelos de machine learning en produccion de forma sostenible."},
+            {"nombre": "Data governance", "desc": "Establece reglas de calidad, acceso y trazabilidad sobre todos tus datos."},
+            {"nombre": "Automatizacion end-to-end", "desc": "Conecta procesos completos de inicio a fin sin intervenciones manuales intermedias."},
+        ],
         "beneficios": [
             "Operación que escala sin crecer proporcionalmente en costos fijos",
             "Insights en tiempo real por área de negocio",
@@ -418,26 +444,48 @@ def crear_telarana(respuestas, puntaje_total):
             valores_siguiente[i] += 1
             pendiente -= 1
 
+    # Piso minimo para que la telarana no colapse cuando hay varios 0
+    PISO = 0.3
+    valores_actuales_vis  = [max(v, PISO) for v in valores_actuales]
+    valores_siguiente_vis = [max(v, PISO) for v in valores_siguiente]
+
+    # Tooltips linea actual
     tooltips_actual = []
     for pregunta in PREGUNTAS:
         v = respuestas.get(pregunta["id"], 0)
         impl = NIVEL_IMPLICACION[pregunta["id"]][v]
-        tooltips_actual.append(f"<b>{pregunta['dimension']}</b> — Nivel {v}/2<br>{impl}")
+        tooltips_actual.append(
+            f"<b style='font-size:14px'>{pregunta['dimension']}</b>"
+            f"<br><span style='font-size:12px; color:#888'>Tu nivel: {v} / 2</span>"
+            f"<br><span style='font-size:13px'>{impl}</span>"
+        )
+
+    # Tooltips linea siguiente
+    tooltips_siguiente = []
+    for i, pregunta in enumerate(PREGUNTAS):
+        v_sig = valores_siguiente[i]
+        impl_sig = NIVEL_IMPLICACION[pregunta["id"]][v_sig]
+        tooltips_siguiente.append(
+            f"<b style='font-size:14px'>{pregunta['dimension']}</b>"
+            f"<br><span style='font-size:12px; color:#c8a000'>Siguiente nivel: {v_sig} / 2</span>"
+            f"<br><span style='font-size:13px'>{impl_sig}</span>"
+        )
 
     fig = go.Figure()
 
     fig.add_trace(go.Scatterpolar(
-        r=valores_siguiente + [valores_siguiente[0]],
+        r=valores_siguiente_vis + [valores_siguiente_vis[0]],
         theta=dimensiones + [dimensiones[0]],
         fill='toself',
         name=f'Siguiente nivel: {siguiente_perfil["nombre"]}',
         fillcolor='rgba(240,192,64,0.12)',
-        line=dict(color='#f0c040', width=2, dash='dash'),
-        hoverinfo='skip',
+        line=dict(color='#f0c040', width=2.5, dash='dash'),
+        text=tooltips_siguiente + [tooltips_siguiente[0]],
+        hovertemplate='%{text}<extra></extra>',
     ))
 
     fig.add_trace(go.Scatterpolar(
-        r=valores_actuales + [valores_actuales[0]],
+        r=valores_actuales_vis + [valores_actuales_vis[0]],
         theta=dimensiones + [dimensiones[0]],
         fill='toself',
         name=f'Tu nivel: {perfil_actual["nombre"]}',
@@ -483,6 +531,18 @@ def crear_telarana(respuestas, puntaje_total):
     )
     return fig
 
+def limpiar_texto(texto):
+    """Elimina caracteres fuera del rango latin-1 para compatibilidad con Helvetica."""
+    return (texto
+        .replace('\u2014', '-')   # em dash —
+        .replace('\u2013', '-')   # en dash -
+        .replace('\u2019', "'")   # comilla curva derecha
+        .replace('\u2018', "'")   # comilla curva izquierda
+        .replace('\u201c', '"')   # comilla doble izquierda
+        .replace('\u201d', '"')   # comilla doble derecha
+        .replace('\u2026', '...')  # elipsis
+    )
+
 def generar_pdf(perfil, puntaje_total, prioridades):
     pdf = FPDF()
     pdf.add_page()
@@ -519,7 +579,7 @@ def generar_pdf(perfil, puntaje_total, prioridades):
 
     pdf.set_text_color(60, 60, 60)
     pdf.set_font("Helvetica", "", 10)
-    pdf.multi_cell(0, 6, perfil["descripcion"])
+    pdf.multi_cell(0, 6, limpiar_texto(perfil["descripcion"]))
     pdf.ln(3)
 
     pdf.set_font("Helvetica", "B", 10)
@@ -527,7 +587,7 @@ def generar_pdf(perfil, puntaje_total, prioridades):
     pdf.cell(0, 7, "Siguiente paso clave:", ln=True)
     pdf.set_font("Helvetica", "", 10)
     pdf.set_text_color(60, 60, 60)
-    pdf.multi_cell(0, 6, perfil["oportunidad"])
+    pdf.multi_cell(0, 6, limpiar_texto(perfil["oportunidad"]))
     pdf.ln(4)
 
     # Prioridades
@@ -544,7 +604,7 @@ def generar_pdf(perfil, puntaje_total, prioridades):
         pdf.cell(0, 7, f"{i}. {p['dimension']}  [Impacto {p['impacto']}]", ln=True)
         pdf.set_font("Helvetica", "", 9)
         pdf.set_text_color(70, 70, 70)
-        pdf.multi_cell(0, 5, p["recomendacion"])
+        pdf.multi_cell(0, 5, limpiar_texto(p["recomendacion"]))
         pdf.ln(2)
 
     # Herramientas
@@ -558,8 +618,13 @@ def generar_pdf(perfil, puntaje_total, prioridades):
     pdf.set_font("Helvetica", "", 10)
     pdf.set_text_color(60, 60, 60)
     for h in perfil["herramientas"]:
-        pdf.cell(6, 6, "-", ln=False)
-        pdf.cell(0, 6, h, ln=True)
+        pdf.set_font("Helvetica", "B", 10)
+        pdf.set_text_color(26, 26, 46)
+        pdf.multi_cell(0, 6, limpiar_texto(f"- {h['nombre']}"))
+        pdf.set_font("Helvetica", "", 9)
+        pdf.set_text_color(100, 100, 100)
+        pdf.multi_cell(0, 5, limpiar_texto(f"  {h['desc']}"))
+        pdf.ln(1)
     pdf.ln(3)
 
     # Beneficios
@@ -573,8 +638,7 @@ def generar_pdf(perfil, puntaje_total, prioridades):
     pdf.set_font("Helvetica", "", 10)
     pdf.set_text_color(60, 60, 60)
     for b in perfil["beneficios"]:
-        pdf.cell(6, 6, "->", ln=False)
-        pdf.multi_cell(0, 6, b)
+        pdf.multi_cell(0, 6, limpiar_texto(f"-> {b}"))
     pdf.ln(4)
 
     # Footer
@@ -737,8 +801,15 @@ elif st.session_state.pagina == "resultados":
 
     # Herramientas
     st.markdown('<div class="seccion-titulo">Herramientas que pueden impulsarte al siguiente nivel</div>', unsafe_allow_html=True)
-    herr_html = "".join([f'<span class="herramienta-tag">{h}</span>' for h in perfil["herramientas"]])
-    st.markdown(f'<div style="text-align:center; margin-bottom:1rem;">{herr_html}</div>', unsafe_allow_html=True)
+    herr_items = "".join([
+        f'<div style="display:inline-block; background:white; border:1px solid #e0e0e0; border-radius:10px; '
+        f'padding:0.5rem 0.9rem; margin:0.3rem; max-width:220px; vertical-align:top;">'
+        f'<div style="font-family:Sora,sans-serif; font-size:0.9rem; font-weight:700; color:#1a1a2e;">{h["nombre"]}</div>'
+        f'<div style="font-family:DM Sans,sans-serif; font-size:0.82rem; color:#666; margin-top:0.15rem; line-height:1.4;">{h["desc"]}</div>'
+        f'</div>'
+        for h in perfil["herramientas"]
+    ])
+    st.markdown(f'<div style="text-align:center; margin-bottom:1rem;">{herr_items}</div>', unsafe_allow_html=True)
 
     st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
