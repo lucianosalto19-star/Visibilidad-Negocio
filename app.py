@@ -48,9 +48,7 @@ def leer_distribucion():
             return None
         lines = r.text.strip().split("\n")
         # Saltar encabezado
-        perfiles_raw = [l.split(",")[1].strip().strip('"') for l in lines[1:] if len(l.split(",")) > 1]
-        perfiles_validos = [p for p in perfiles_raw if p in [pf["nombre"] for pf in []]]
-        # Usar nombres de PERFILES que se definen más adelante — los hardcodeamos aquí
+        perfiles_raw = [l.split(",")[2].strip().strip('"') for l in lines[1:] if len(l.split(",")) > 2]
         nombres_validos = ["Sobreviviendo", "Registrando", "Intentando ver", "Entendiendo", "Anticipando"]
         conteos = {n: 0 for n in nombres_validos}
         for p in perfiles_raw:
