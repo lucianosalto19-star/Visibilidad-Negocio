@@ -3,8 +3,13 @@ import plotly.graph_objects as go
 from fpdf import FPDF
 import datetime
 import requests
+import io
 
 FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfL7Vt_YIixxU6fzzbs_LAMU7nW-poIWgJ-DKe_Lm4De1YEVg/formResponse"
+
+SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQLGv6td5k1vVsGydIcwEc8jQudhMIFpefL7Fvf5laHdEZw6lYqhqS-gOTJjkP0_14Ai9AgV3ZX3TGs/pub?gid=1531898081&single=true&output=csv"
+
+MIN_REGISTROS = 10
 
 FORM_FIELDS = {
     "timestamp":     "entry.1934565408",
@@ -33,7 +38,32 @@ def guardar_respuesta(perfil_nombre, puntaje_total, respuestas):
         }
         requests.post(FORM_URL, data=data, timeout=3)
     except Exception:
-        pass  # Silencioso - nunca interrumpe la experiencia del usuario
+        pass
+
+@st.cache_data(ttl=300)
+def leer_distribucion():
+    try:
+        r = requests.get(SHEET_CSV, timeout=5)
+        if r.status_code != 200:
+            return None
+        lines = r.text.strip().split("\n")
+        # Saltar encabezado
+        perfiles_raw = [l.split(",")[1].strip().strip('"') for l in lines[1:] if len(l.split(",")) > 1]
+        perfiles_validos = [p for p in perfiles_raw if p in [pf["nombre"] for pf in []]]
+        # Usar nombres de PERFILES que se definen más adelante — los hardcodeamos aquí
+        nombres_validos = ["Sobreviviendo", "Registrando", "Intentando ver", "Entendiendo", "Anticipando"]
+        conteos = {n: 0 for n in nombres_validos}
+        for p in perfiles_raw:
+            if p in conteos:
+                conteos[p] += 1
+        total = sum(conteos.values())
+        if total < MIN_REGISTROS:
+            return None
+        # Normalizar a escala 0-100
+        normalizado = {k: round(v / total * 100) for k, v in conteos.items()}
+        return normalizado, total
+    except Exception:
+        return None
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -809,6 +839,54 @@ elif st.session_state.pagina == "resultados":
     st.markdown('<div class="seccion-titulo">Al subir de nivel obtendrás</div>', unsafe_allow_html=True)
     for b in perfil["beneficios"]:
         st.markdown(f'<div class="beneficio-item">&#10003; &nbsp;{b}</div>', unsafe_allow_html=True)
+
+    st.markdown('<hr class="divider">', unsafe_allow_html=True)
+
+    # Distribución
+    dist = leer_distribucion()
+    if dist is not None:
+        normalizado, total = dist
+        nombres = ["Sobreviviendo", "Registrando", "Intentando ver", "Entendiendo", "Anticipando"]
+        valores = [normalizado.get(n, 0) for n in nombres]
+        colores = ["#f0c040" if n == perfil["nombre"] else "#e0ddd8" for n in nombres]
+
+        st.markdown('<div class="seccion-titulo">¿Dónde estás tú respecto a los demás?</div>', unsafe_allow_html=True)
+        st.markdown(f"""
+        <div class="seccion-descripcion">
+        Tu nivel está resaltado en dorado. Basado en {total} diagnósticos realizados.
+        </div>
+        """, unsafe_allow_html=True)
+
+        fig_dist = go.Figure(go.Bar(
+            x=nombres,
+            y=valores,
+            marker_color=colores,
+            marker_line_width=0,
+            hovertemplate='%{x}<br>%{y}%<extra></extra>',
+            text=[f"{v}%" for v in valores],
+            textposition="outside",
+            textfont=dict(family="Sora", size=13, color="#1a1a2e"),
+        ))
+
+        fig_dist.update_layout(
+            yaxis=dict(
+                range=[0, 110],
+                showticklabels=False,
+                showgrid=False,
+                zeroline=False,
+            ),
+            xaxis=dict(
+                tickfont=dict(family="Sora", size=12, color="#1a1a2e"),
+                showgrid=False,
+            ),
+            paper_bgcolor="#f8f7f4",
+            plot_bgcolor="#f8f7f4",
+            margin=dict(l=20, r=20, t=20, b=40),
+            height=320,
+            showlegend=False,
+        )
+
+        st.plotly_chart(fig_dist, use_container_width=True, config={"displayModeBar": False})
 
     st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
