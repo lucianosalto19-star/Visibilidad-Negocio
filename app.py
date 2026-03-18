@@ -211,7 +211,7 @@ PREGUNTAS = [
         "texto": "¿Dónde vive la información de tu negocio?",
         "opciones": [
             ("Facturas, apuntes físicos / PDF sueltos / en la cabeza de alguien", 0),
-            ("Excel / archivos digitales separados / QuickBooks o herramienta similar", 1),
+            ("Excel / archivos digitales separados / herramienta similar", 1),
             ("CRM / ERP / repositorio centralizado de información", 2),
         ]
     },
@@ -381,24 +381,24 @@ NIVEL_IMPLICACION = {
 
 RECOMENDACIONES = {
     "datos": [
-        {"nivel": 0, "texto": "Elige un CRM gratuito esta semana — HubSpot / Zoho en español. Migra tus contactos activos primero, el resto después. El objetivo es que tu información deje de vivir en la cabeza de alguien.", "impacto": "Alto"},
-        {"nivel": 1, "texto": "Tu Excel ya es un CRM incompleto. El siguiente paso es migrar esa estructura a una herramienta que se actualice sola y que todo tu equipo pueda alimentar sin depender de ti.", "impacto": "Alto"},
+        {"nivel": 0, "texto": "Selecciona un CRM gratuito esta semana: HubSpot / Zoho están disponibles en español. Comienza migrando tus contactos activos; el resto puede esperar. Lo importante es que la información de tu negocio deje de vivir dispersa.", "impacto": "Alto"},
+        {"nivel": 1, "texto": "Tu Excel ya funciona como un CRM incompleto. El siguiente paso es migrar esa estructura a una herramienta que se actualice sola y que tu equipo pueda alimentar sin depender de una sola persona.", "impacto": "Alto"},
     ],
     "acceso": [
-        {"nivel": 0, "texto": "Identifica una sola pregunta que te haces cada semana sobre tu negocio y construye un lugar donde esa respuesta esté siempre visible. Empieza con una, no con diez.", "impacto": "Medio"},
-        {"nivel": 1, "texto": "Ya consultas tu información, ahora hazla llegar sola. Activa alertas y dashboards automáticos en las herramientas que ya tienes — casi todas lo permiten sin costo adicional.", "impacto": "Medio"},
+        {"nivel": 0, "texto": "Identifica una sola pregunta que te haces cada semana sobre tu negocio y construye un lugar donde esa respuesta esté siempre disponible. Empieza con una, no con diez.", "impacto": "Medio"},
+        {"nivel": 1, "texto": "Ya consultas tu información; el siguiente paso es que llegue sola. Activa alertas y dashboards automáticos en las herramientas que ya tienes: casi todas lo permiten sin costo adicional.", "impacto": "Medio"},
     ],
     "decisiones": [
-        {"nivel": 0, "texto": "Define tres métricas que revisarás cada lunes: ventas de la semana, inventario crítico, cuentas por cobrar vencidas. Solo esas tres. Lo que se mide, se gestiona.", "impacto": "Alto"},
-        {"nivel": 1, "texto": "Tienes datos pero están atrasados. Identifica dónde está el cuello de botella — generalmente es un reporte que alguien produce manualmente — y elimínalo.", "impacto": "Alto"},
+        {"nivel": 0, "texto": "Define tres métricas que revisarás cada lunes: ventas de la semana, inventario crítico y cuentas por cobrar vencidas. Solo esas tres. Lo que se mide, se puede gestionar.", "impacto": "Alto"},
+        {"nivel": 1, "texto": "Tienes datos pero están atrasados. Identifica dónde está el cuello de botella — generalmente es un reporte que alguien produce manualmente — y reemplázalo con algo automático.", "impacto": "Alto"},
     ],
     "comprension": [
-        {"nivel": 0, "texto": "Empieza por una sola área: ¿por qué subieron / bajaron tus ventas este mes? Responde esa pregunta con datos aunque te tarde. La siguiente vez tardará menos.", "impacto": "Alto"},
-        {"nivel": 1, "texto": "Ya puedes explicar tu negocio pero con esfuerzo. Documenta cómo llegas a esa respuesta y automatiza ese proceso para que ocurra solo cada semana.", "impacto": "Medio"},
+        {"nivel": 0, "texto": "Empieza por una sola área: ¿por qué subieron / bajaron tus ventas este mes? Responde esa pregunta con datos, aunque requiera tiempo la primera vez. Cada repetición será más rápida.", "impacto": "Alto"},
+        {"nivel": 1, "texto": "Ya puedes explicar tu negocio, pero con esfuerzo. Documenta el proceso con el que llegas a esa respuesta y automatízalo para que ocurra solo cada semana.", "impacto": "Medio"},
     ],
     "automatizacion": [
-        {"nivel": 0, "texto": "Elige el proceso más repetitivo de tu operación — cotizaciones, seguimiento a clientes, reportes de cierre. Ese es tu primer candidato a automatizar. No necesitas programar nada.", "impacto": "Alto"},
-        {"nivel": 1, "texto": "Ya automatizas tareas. El siguiente paso es usar esos datos para predecir. Empieza simple: proyección de ventas del siguiente mes basada en tu histórico.", "impacto": "Medio"},
+        {"nivel": 0, "texto": "Identifica el proceso más repetitivo de tu operación: cotizaciones, seguimiento a clientes o reportes de cierre. Ese es tu primer candidato a automatizar. No se requiere programar nada.", "impacto": "Alto"},
+        {"nivel": 1, "texto": "Ya automatizas tareas operativas. El siguiente paso es usar esos datos para anticipar: una proyección de ventas del siguiente mes basada en tu histórico es un buen punto de partida.", "impacto": "Medio"},
     ],
 }
 
@@ -564,15 +564,15 @@ def generar_pdf(perfil, puntaje_total, prioridades):
         pdf.line(L, pdf.get_y(), 210-R, pdf.get_y())
         pdf.ln(3)
 
-    # Header oscuro
+    # Header oscuro - rect primero, luego texto encima
     pdf.set_fill_color(26, 26, 46)
-    pdf.rect(0, 0, 210, 34, 'F')
-    pdf.set_y(7)
+    pdf.rect(0, 0, 210, 36, 'F')
+    pdf.set_y(8)
     mc("Diagnostico de Visibilidad del Negocio",
-       h=9, size=15, bold=True, color=(240,192,64), align="C")
+       h=10, size=15, bold=True, color=(240,192,64), align="C")
     mc("De sobrevivir a competir: automatizacion e IA como diferenciador",
        h=6, size=9, color=(180,180,200), align="C")
-    pdf.ln(6)
+    pdf.set_y(44)
 
     # Nivel
     seccion("Tu nivel actual de visibilidad")
@@ -581,7 +581,7 @@ def generar_pdf(perfil, puntaje_total, prioridades):
     pdf.ln(2)
     mc(perfil["descripcion"])
     pdf.ln(2)
-    mc("Siguiente paso clave:", bold=True, color=(26,26,46))
+    mc("Tu siguiente paso clave:", bold=True, color=(26,26,46))
     mc(perfil["oportunidad"], color=(80,60,0))
     pdf.ln(2)
 
@@ -604,12 +604,6 @@ def generar_pdf(perfil, puntaje_total, prioridades):
     seccion("Al subir de nivel obtendras")
     for b in perfil["beneficios"]:
         mc(f"-> {b}")
-    pdf.ln(4)
-
-    # Footer
-    fecha = datetime.date.today().strftime("%d/%m/%Y")
-    mc(f"Generado el {fecha}  |  Universidad de la Libertad  |  Especialidad IA Aplicada a los Negocios",
-       size=8, color=(160,160,160), align="C")
 
     return bytes(pdf.output())
 
@@ -723,11 +717,9 @@ elif st.session_state.pagina == "resultados":
     st.markdown('<div class="seccion-titulo">Tu mapa de visibilidad</div>', unsafe_allow_html=True)
     st.markdown(f"""
     <div class="seccion-descripcion">
-    La <strong>línea oscura</strong> muestra dónde estás hoy.<br>
-    La <strong>línea dorada</strong> muestra a dónde puedes llegar: nivel <em>{sig_perfil['nombre']}</em>.<br>
-    <span style="font-size:0.88rem; color:#999;">
-    Pasa el cursor sobre cada vértice para ver qué implica tu nivel actual en esa dimensión.
-    </span>
+    La <strong>línea oscura</strong> muestra dónde estás hoy.
+    La <strong>línea dorada</strong> muestra a dónde puedes llegar: nivel <em>{sig_perfil['nombre']}</em>.
+    Pasa el cursor sobre cada vértice para ver qué implica tu nivel en esa dimensión.
     </div>
     """, unsafe_allow_html=True)
 
