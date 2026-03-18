@@ -4,7 +4,7 @@ from fpdf import FPDF
 import datetime
 import requests
 
-FORM_URL = "https://docs.google.com/forms/d/1j6PCC2M6XLrvwDplNYsLXcMRcyscRGd9ZJyungGg8QE/formResponse"
+FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfL7Vt_YIixxU6fzzbs_LAMU7nW-poIWgJ-DKe_Lm4De1YEVg/formResponse"
 
 FORM_FIELDS = {
     "timestamp":     "entry.1934565408",
