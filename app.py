@@ -263,6 +263,20 @@ html, body, [class*="css"] {
     border-top: 1px solid #e8e4dc;
     margin: 1.5rem 0;
 }
+
+/* Radio buttons — forzar color visible en móvil y desktop */
+div[data-testid="stRadio"] label,
+div[data-testid="stRadio"] label p,
+div[data-testid="stRadio"] span {
+    color: #1a1a2e !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+}
+
+div[data-testid="stRadio"] > div {
+    gap: 0.5rem;
+}
 </style>
 """, unsafe_allow_html=True)
 
